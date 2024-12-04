@@ -1,3 +1,10 @@
+/*
+C++ Programming Project
+3.  Student Score and Information Management System
+
+Made by: Ahmed El-Shazly
+*/
+
 #include<iostream>
 #include<string>
 using namespace std;
@@ -42,6 +49,7 @@ class Student {
                  << "Major: " << Major << "\n"
                  << "Selected Courses: \n";
 
+            /*checking if there any course to be displayed*/
             bool foundCourse = false;
             for (int i = 0; i < MAX_COURSES; i++) {
                 if (selectedCourses[i] != -1) {
@@ -57,6 +65,7 @@ class Student {
             cout << "Total Credits: " << totalCredits << "\n";
         }
 
+        /*replacing the first uninitialized element in the selectedCourses array to the new course*/
         void addCourse(int courseNum, int credits) {
             if (totalCredits + credits <= 32) {
                 for (int i = 0; i < MAX_COURSES; i++) {
@@ -77,7 +86,6 @@ class Student {
             return totalCredits;
         }
 };
-
 
 class Course {
     private:
@@ -105,6 +113,8 @@ class Course {
                  << "Credits: " << credit << "\n"
                  << "Compulsory: " << (property ? "Yes" : "No") << "\n";
             cout << "Students who selected this course: ";
+
+            /*checking if there any students that have selected this course*/
             bool found = false;
             for (int i = 0; i < studentCount; i++) {
                 if (studentNums[i] != -1) {
@@ -117,7 +127,9 @@ class Course {
             }
             cout << "\n";
         }
-
+        
+        /*add a new student no to the list of students who have selected this course
+        if the number of students who have selected this course hasnt reached its max yet*/
         void addStudent(int studentNum) {
             if (studentCount < MAX_STUDENTS) {
                 studentNums[studentCount++] = studentNum;
@@ -141,9 +153,12 @@ class Student_Score {
         float get_Score() { return score; }
 
         void displayStudentScore(Student students[], int studentCount, Course courses[], int courseCount) {
+            /*initial value of the name of the student and the course*/
             string studentName = "Unknown";
             string courseName = "Unknown";
 
+            /*searches for a Student name in the students array thats a student object 
+            based on the student's number*/
             for (int i = 0; i < studentCount; i++) {
                 if (students[i].get_Num() == studentNum) {
                     studentName = students[i].get_Name();
@@ -151,6 +166,8 @@ class Student_Score {
                 }
             }
 
+            /*searches for a Course name in the courses array thats a Course object 
+            based on the course's number*/
             for (int i = 0; i < courseCount; i++) {
                 if (courses[i].get_Num() == courseNum) {
                     courseName = courses[i].get_Name();
@@ -185,9 +202,10 @@ void displayMenu() {
     cout << "Enter your choice (0-12): ";
 }
 
+/*Student Functions*/
 void addStudent(Student students[], int& studentCount) {
     if (studentCount >= MAX_STUDENTS) {
-        cout << "Maximum number of students reached.\n";
+        cout << "Maximum number of students has been reached.\n";
         return;
     }
 
@@ -252,7 +270,7 @@ void modifyStudent(Student students[], int studentCount) {
             cout << "5. Modify Major\n";
             cout << "Enter your choice: ";
             cin >> option;
-            cin.ignore(); // Ignore leftover newline
+            cin.ignore(); 
 
             switch (option) {
                 case 1: {
